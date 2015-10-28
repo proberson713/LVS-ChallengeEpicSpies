@@ -12,8 +12,12 @@ public partial class _Default : System.Web.UI.Page
         if (!Page.IsPostBack)
         {
             previousAssignmentEndCalendar.SelectedDate = DateTime.Parse(DateTime.Now.ToShortDateString());
+            
             newAssignmentStartCalendar.SelectedDate = DateTime.Parse(DateTime.Now.AddDays(14).ToShortDateString());
+            newAssignmentStartCalendar.VisibleDate = DateTime.Parse(DateTime.Now.AddDays(14).ToShortDateString());
+
             newAssignmentEndCalendar.SelectedDate = DateTime.Parse(DateTime.Now.AddDays(21).ToShortDateString());
+            newAssignmentEndCalendar.VisibleDate = DateTime.Parse(DateTime.Now.AddDays(21).ToShortDateString());
         }
     }
     protected void assignSpyButton_Click(object sender, EventArgs e)
@@ -27,7 +31,7 @@ public partial class _Default : System.Web.UI.Page
             resultLabel.Text = "Error: Must allow two weeks between previous assignment and new assignment.";
             newAssignmentStartCalendar.SelectedDate = previousAssignmentEndCalendar.SelectedDate.AddDays(14);
         }
-        else if ((totalDays = newAssignmentEndCalendar.SelectedDate.Subtract(newAssignmentStartCalendar.SelectedDate).TotalDays) > 21)
+        else if ((totalDays = newAssignmentEndCalendar.SelectedDate.Subtract(newAssignmentStartCalendar.SelectedDate).TotalDays) >= 21)
         {
             budgetTotal = (totalDays * 500) + 1000;
         }
